@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 ,user-scalable=no">
+    <title>Sticky Header</title>
+    <style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+    .container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    body {
+        padding: 0;
+        margin: 0;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1.2;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    header {
+        background-color: #90c746;
+        color: #fff;
+        text-align: center;
+        height: 80px;
+        line-height: 80px;
+        position: fixed;
+        width: 100%;
+        z-index: 10;
+        transition: box-shadow 0.3s;
+    }
+
+    .site-header.sticky {
+        box-shadow: 0 0 10px rgb(0 0 0 / 50%);
+    }
+
+    .section {
+        height: 80vh;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .one {
+        background-color: #fff;
+    }
+
+    .two {
+        background-color: #1c2645;
+        color: #fff;
+    }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            Header
+        </div>
+    </header>
+    <div class="main-content">
+        <div class="section one">
+            <div class="container">
+                Section1
+            </div>
+        </div>
+        <div class="section two">
+            <div class="container">
+                Section2
+            </div>
+        </div>
+    </div>
+    <script src="jquery.js"></script>
+    <script>
+    // using jQuery
+    function sticky_header() {
+        if ($(window).scrollTop() > 0) {
+            $(".site-header").addClass("sticky");
+        } else {
+            $(".site-header").removeClass("sticky");
+        }
+    }
+
+    function headerAdj() {
+        var headerH = $(".site-header").innerHeight();
+        $(".main-content").css({
+            "padding-top": headerH
+        });
+    }
+
+    $(function() {
+        // sticky_header();
+        // headerAdj();
+
+        $(window).scroll(function() {
+            // sticky_header();
+        });
+
+        $(window).resize(function() {
+            // sticky_header();
+            // headerAdj();
+        });
+    });
+
+
+    // using Javascript
+    const stickyHeader = () => {
+        // window.pageYOffset  = window.scrollY
+      if (window.pageYOffset > 0) {
+        document.querySelector(".site-header").classList.add('sticky');
+      }
+      else{
+        document.querySelector(".site-header").classList.remove('sticky');
+      }
+    };
+
+    const headerTop = () => {
+      var wrapper = document.querySelector(".main-content");
+      if (wrapper !== null) {
+        var header_h = document.querySelector(".site-header").offsetHeight;
+        wrapper.style.paddingTop = header_h + "px";
+      }
+    };
+
+    headerTop();
+    stickyHeader();
+
+    window.addEventListener("load", function () {
+        setTimeout(() => {
+          headerTop();
+        }, 150);
+    });
+
+    window.addEventListener("resize", function () {
+        setTimeout(() => {
+          headerTop();
+        }, 150);
+    });
+
+    window.addEventListener("scroll", function () {
+        stickyHeader();
+    });
+
+    </script>
+</body>
+
+</html>
